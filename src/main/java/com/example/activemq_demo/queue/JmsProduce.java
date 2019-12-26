@@ -34,9 +34,15 @@ public class JmsProduce {
         //7、通过使用messageProducer生产消息发送给MQ队列里
         for (int i = 0; i <6 ; i++) {
             //8.创建消息
-            TextMessage textMessage = session.createTextMessage("msg----" + i);
+            TextMessage textMessage = session.createTextMessage("textMessage----" + i);
             //9.通过messageProducer发生给MQ
             messageProducer.send(textMessage);
+            
+            /*------------键值对消息--------------*/
+            MapMessage mapMessage = session.createMapMessage();
+            mapMessage.setString("v1","mapMessage-----"+i);
+            messageProducer.send(mapMessage);
+            /*------------键值对消息--------------*/
         }
         //10.关闭资源
         messageProducer.close();
