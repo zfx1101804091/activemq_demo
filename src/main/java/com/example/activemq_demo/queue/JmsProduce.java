@@ -31,19 +31,21 @@ public class JmsProduce {
 
         //6、创建消息的生产者
         MessageProducer messageProducer = session.createProducer(queue);
+        //messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);//消息非持久化--服务器宕机，消息不存在
+        messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);//消息持久化--服务器宕机，消息依然存在
         //7、通过使用messageProducer生产消息发送给MQ队列里
         for (int i = 0; i <6 ; i++) {
             //8.创建消息
             TextMessage textMessage = session.createTextMessage("textMessage----" + i);
-            textMessage.setStringProperty("c01","VIP");//消息属性（相当于对消息体的增强）
+            //textMessage.setStringProperty("c01","VIP");//消息属性（相当于对消息体的增强）
             //9.通过messageProducer发生给MQ
             messageProducer.send(textMessage);
             
-            /*------------键值对消息--------------*/
+         /*   *//*------------键值对消息--------------*//*
             MapMessage mapMessage = session.createMapMessage();
             mapMessage.setString("v1","mapMessage-----"+i);
             messageProducer.send(mapMessage);
-            /*------------键值对消息--------------*/
+            *//*------------键值对消息--------------*/
         }
         //10.关闭资源
         messageProducer.close();
