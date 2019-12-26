@@ -35,6 +35,7 @@ public class JmsProduce {
         for (int i = 0; i <6 ; i++) {
             //8.创建消息
             TextMessage textMessage = session.createTextMessage("textMessage----" + i);
+            textMessage.setStringProperty("c01","VIP");//消息属性（相当于对消息体的增强）
             //9.通过messageProducer发生给MQ
             messageProducer.send(textMessage);
             
