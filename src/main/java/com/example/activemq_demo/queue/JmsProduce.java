@@ -6,6 +6,7 @@ import javax.jms.*;
 
 /**
  * @description:    消息生产者
+ *      队列的消息默认为持久化 
  * @author: zheng-fx
  * @time: 2019/12/21 0021 01:04
  */
@@ -32,7 +33,7 @@ public class JmsProduce {
         //6、创建消息的生产者
         MessageProducer messageProducer = session.createProducer(queue);
         //messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);//消息非持久化--服务器宕机，消息不存在
-        messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);//消息持久化--服务器宕机，消息依然存在
+        messageProducer.setDeliveryMode(DeliveryMode.PERSISTENT);//消息持久化--服务器宕机，消息依然存在（默认持久化）
         //7、通过使用messageProducer生产消息发送给MQ队列里
         for (int i = 0; i <6 ; i++) {
             //8.创建消息
